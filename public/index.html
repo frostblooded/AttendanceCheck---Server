@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html ng-app="myModule">
+<head>
+	<title>Attendance Check</title>
+	<link href="styles/index_style.css" type="text/css" rel="stylesheet">
+	<script type="text/javascript" src="scripts/jquery-1.11.3.js" ></script>
+	<script type="text/javascript" src="scripts/angular.js"></script>
+	<script type="text/javascript" src="scripts/controller.js"></script>
+	<script type="text/javascript" src="scripts/sha256.js"></script>
+	<script>
+		$(document).ready(function(){
+			$("#settings_values_error").hide();
+			$("#settings_connect_error").hide();
+			$("#settings_success").hide();
+			$("#names_error").hide();
+			$("#login_error").hide();
+		});
+	</script>
+</head>
+<body ng-controller="myController">
+	<div id="login_wrapper" ng-show="!logged_in">
+		<form ng-submit="login()">
+			<span>Парола:</span>
+			<input type="password" id="password" ng-model="password"></input>
+			<input type="submit" id="login_submit" value="Влез"></input>
+			<div id="login_error">Грешна парола!</div>
+		</form>
+	</div>
+	<div id="settings_wrapper" ng-show="logged_in">
+		<h2>Настройки</h2>
+		<form ng-submit="submit()">
+			<table id='settings'>
+				<tr ng-repeat="s in settings">
+					<td>
+						{{ s.text }}
+					</td>
+					<td>
+						<input type="text" value="{{ s.value }}" ng-model="s.value" id="{{ s.name }}">
+					</td>
+					<td>
+						{{ s.postfix }}
+					</td>
+				</tr>
+				<tr>
+				<td></td>
+				<td>
+					<input id='button' type="submit" value="Запази">
+				</td>
+				</tr>
+			</table>
+			
+			<div id="settings_values_error">Полетата съдържат невалидни стойности!</div>
+			<div id="settings_connect_error">Появи се грешка! Моля опитайте по-късно. (Проверете връзката със сървъра)</div>
+			<div id="settings_success">Настройките са обновени успешно!</div>
+		</form>
+		
+		<h2>Потребители</h2>
+		<form>
+			<table id='users'>
+				<tr ng-repeat="u in users" id="{{ u._id }}">
+					<td>
+						{{ u.device_name }}
+					</td>
+					<td>
+						<input type="button" value="Изтрий" ng-click="delete(u)">
+					</td>
+				</tr>
+			</table>
+			
+			<div id="names_error">Появи се грешка! Моля опитайте по-късно. (Проверете връзката със сървъра)</div>
+		</form>
+	</div>
+</body>
+</html>

@@ -1,0 +1,67 @@
+#login_wrapper{
+	width: 50%;
+	margin: 150px auto;
+	text-align: center;
+}
+
+#login_wrapper input{
+	display: block;
+	margin: 0 auto;
+}
+
+#login_wrapper #login_submit{
+	margin: 25px auto;
+}
+
+#settings_wrapper{
+	width: 50%;
+	margin: 0 auto;
+}
+
+#settings_wrapper h2{
+	text-align: center;
+}
+
+#settings_wrapper table{
+	width: 100%;
+	table-layout: fixed;
+	margin: 0 auto;
+}
+
+#settings_wrapper #settings td{
+	min-width: 150px;
+	width: 33%;
+}
+
+#settings_wrapper input[type='text']{
+	color: darkslateblue;
+	width: 93%;
+	margin: 0 auto;
+	text-align: center;
+	padding: 0 5px;
+}
+
+#settings_wrapper #button{
+	display: block;
+	margin: 10px auto 0 auto;
+	height: 50px;
+	width: 100%;
+}
+
+#settings_wrapper #users td{
+	width: 50%;
+}
+
+#settings_wrapper #users{
+	text-align: center;
+}
+
+#settings_wrapper #settings_values_error, #settings_connect_error, #names_error, #login_error{
+	text-align: center;
+	color: red;
+}
+
+#settings_wrapper #settings_success{
+	text-align: center;
+	color: green;
+}
