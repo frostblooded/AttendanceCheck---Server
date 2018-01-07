@@ -1,4 +1,2 @@
-**No longer supported!**
-
-# AttendanceCheck-Server-Old
-The server for the the old AttendanceCheck app
+# AttendanceCheck---Server
+The server for the AttendanceCheck android app.

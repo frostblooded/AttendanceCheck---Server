@@ -1,6 +1,5 @@
 var SERVER_IP = "ip";
 var SECRET = "secret";
-
 var myApp = angular.module("myModule", []);
 
 var inputIsValid = function(){

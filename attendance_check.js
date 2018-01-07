@@ -37,17 +37,18 @@ app.post('/submit', function(request, response){
 	current_time = new Date();
 	time_difference = current_time - submission_time;
 
+	logger.info("Checking submission " + JSON.stringify(submission));
 	logger.info("Time difference is " + time_difference);
 	logger.info("Allowed time difference is " + ALLOWED_TIME_DIFFERENCE);
 
 	if(time_difference < ALLOWED_TIME_DIFFERENCE){
-		logger.info("Handling submission " + JSON.stringify(submission));
+		logger.info("Handling submission.");
 
 		database_handler.updateOne({
 			_id: ObjectId(submission.id)
 		}, {
 			time_left: submission.time_left,
-			receival_time: current_time.toString(),
+			receival_time: current_time,
 			status: 'received'
 		}, 'submissions', function(){
 			response.end("200");
@@ -115,10 +116,6 @@ setInterval(function(){
 	milliseconds_since_sending += minute;
 
 	settings_manager.get('submission_interval', function(submission_interval){
-		logger.info('Sending in '
-		 + (submission_interval - milliseconds_since_sending) / (60 * 1000)
-		 + ' minutes.');
-
 		if(milliseconds_since_sending >= submission_interval){
 			milliseconds_since_sending = 0;
 			send_notification.send();
@@ -135,10 +132,13 @@ setInterval(function(){
 				else{
 					last_sent_mail_day = new Date().getDate();
 				}
+
 			});
 		}
 	});
 }, minute);
+
+database_handler.createTTLIndex();
 
 //Run server
 var server = app.listen(8080, function(){

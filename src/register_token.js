@@ -26,12 +26,11 @@ this.register = function(databaseUrl, requestBody){
 		existsInDB(db, token, function(exists){
 			if(!exists){
 				logger.info('Registering token ' + token + ' with name ' + device_name);
-				time = new Date().toString();
 
 				var data = {
 					'token': token,
 					'device_name': device_name,
-					'time': time
+					'time': new Date()
 				}
 
 				database_handler.insert(data, 'tokens', function(){
@@ -40,6 +39,7 @@ this.register = function(databaseUrl, requestBody){
 				});
 			}
 			else{
+				db.close();
 				logger.info("Token is already registered!");
 			}
 		});

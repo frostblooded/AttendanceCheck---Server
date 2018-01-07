@@ -35,16 +35,16 @@ var get_tokens = function(callback){
 }
 
 var insert_submission_status = function(token, callback){
-	var time = new Date();
-
+	var current_time = new Date();
+	
 	database_handler.insert({
 		token: token,
-		send_time: time.toString(),
+		send_time: current_time,
 		status: 'sent'
 	}, 'submissions', function(){
 		database_handler.find({
 			token: token,
-			send_time: time.toString()
+			send_time: current_time
 		}, 'submissions', function(data){
 			if(callback){
 				//return submission id
@@ -100,6 +100,9 @@ var make_request = function(tokens){
 var check_is_shift = function(callback){
 	settings_manager.get('shift_start', function(shift_start){
 		settings_manager.get('shift_end', function(shift_end){
+			shift_start = parseInt(shift_start);
+			shift_end = parseInt(shift_end);
+
 			var current_hour = new Date().getHours();
 			var result = false;
 
@@ -123,8 +126,6 @@ var check_is_shift = function(callback){
 
 this.send = function(dbUrl){
 	check_is_shift(function(is_shift){
-		logger.info('Is shift: ' + is_shift);
-
 		if(is_shift){
 			get_tokens(make_request);
 		}

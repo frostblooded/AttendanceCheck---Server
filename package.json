@@ -1,6 +1,6 @@
 {
   "name": "attendance_check",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Checks the attendance on devices and stores collected data.",
   "main": "attendance_check.js",
   "dependencies": {
